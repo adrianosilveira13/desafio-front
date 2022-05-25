@@ -9,7 +9,6 @@ html {
 }
 
 body {
-  background-color: #96182d;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -24,4 +23,88 @@ body {
 
 span {
   font-size: 1.6rem;
+}
+
+.container {
+  background-color: #f2f2f2;
+  padding: 4rem;
+  border-radius: 0.3rem;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+a,
+a:link,
+a:visited {
+  font-size: 1.6rem;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+a:hover,
+a:active {
+  text-decoration: underline;
+}
+
+.title {
+  font-size: 4.8rem;
+  margin-bottom: 1.8rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.success {
+  font-size: 3.2rem;
+  color: #007246;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.error {
+  font-size: 3.8rem;
+  color: #dd2241;
+  align-self: center;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+table {
+  font-size: 2rem;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+thead tr {
+  background-color: #ddd;
+  font-weight: 700;
+}
+
+tbody tr {
+  cursor: pointer;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #eee;
+}
+
+td {
+  padding: 1.2rem 2.4rem;
+}
+
+table tbody .entrada {
+  background-color: #c3ffe8;
+}
+
+table tbody .saida {
+  background-color: #ffc3c3 !important;
+}
+
+a.addTransaction {
+  color: #007246;
+  text-transform: uppercase;
+  font-weight: 700;
 }
