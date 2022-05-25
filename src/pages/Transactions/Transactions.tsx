@@ -2,6 +2,7 @@ import './Transactions.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import env from '../../env';
 
 type Transaction = {
   amount: number;
@@ -77,7 +78,7 @@ const Transactions: React.FC = () => {
     }
     if (state) {
       axios
-        .get(`http://localhost:8080/api/transactions/${state.storeId}`, {
+        .get(`${env.api}/api/transactions/${state.storeId}`, {
           headers: {
             accesstoken,
           },
@@ -98,6 +99,7 @@ const Transactions: React.FC = () => {
 
   return (
     <div className='container'>
+      <Link to="/stores">&larr; Voltar</Link>
       <div className='title'>Transações</div>
       {error.message || state === null ? (
         <>

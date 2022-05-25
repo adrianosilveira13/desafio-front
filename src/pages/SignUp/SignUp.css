@@ -32,17 +32,3 @@
   font-weight: 700;
 }
 
-.success {
-  font-size: 3.2rem;
-  color: #007246;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-.error {
-  font-size: 1.6rem;
-  color: #dd2241;
-  align-self: center;
-  text-transform: uppercase;
-  font-weight: 700;
-}

@@ -2,6 +2,7 @@ import './Stores.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import env from '../../env';
 
 type Store = {
   id: number;
@@ -15,6 +16,8 @@ const Stores: React.FC = () => {
   const [stores, setStores] = useState<StoresArray>([]);
   const [state, setState] = useState({
     error: '',
+    authorized: true,
+    content: true,
   });
 
   const history = useNavigate();
@@ -30,6 +33,11 @@ const Stores: React.FC = () => {
 
   const handleClick = (id: number) => {
     history('/transactions', { state: { storeId: id } });
+  };
+
+  const logout = () => {
+    localStorage.removeItem('accesstoken');
+    history('/login');
   };
 
   const loadStores = () => {
@@ -49,11 +57,11 @@ const Stores: React.FC = () => {
   useEffect(() => {
     const accesstoken = localStorage.getItem('accesstoken');
     if (!accesstoken) {
-      setState({ ...state, error: 'Você não está logado' });
+      setState({ ...state, error: 'Você não está logado', authorized: false });
       return;
     }
     axios
-      .get('http://localhost:8080/api/stores', {
+      .get(`${env.api}/api/stores`, {
         headers: {
           accesstoken,
         },
@@ -64,7 +72,8 @@ const Stores: React.FC = () => {
       .catch(() => {
         setState({
           ...state,
-          error: 'Algo deu errado, tente novamente mais tarde!',
+          error: 'Algo deu errado, ou não há lojas cadastradas',
+          content: false,
         });
       });
   }, [state]);
@@ -72,12 +81,19 @@ const Stores: React.FC = () => {
   return (
     <div className='container'>
       <div className='title'>Lojas</div>
-      {state.error ? (
+      {!state.content && (
+        <>
+          <div className='error'>{state.error}</div>
+          <Link to='/upload'>Clique aqui e carregue os dados!</Link>
+        </>
+      )}{' '}
+      {!state.authorized && (
         <>
           <div className='error'>{state.error}</div>
           <Link to='/login'>Clique aqui e faça login!</Link>
         </>
-      ) : (
+      )}
+      {state.authorized && state.content ? (
         <>
           <table>
             <thead>
@@ -91,8 +107,12 @@ const Stores: React.FC = () => {
           <Link to='/upload' className='addTransaction'>
             Adicionar mais transações
           </Link>
-          <Link to='/logout'>Logout</Link>
+          <span className='logout' onClick={logout}>
+            Logout
+          </span>
         </>
+      ) : (
+        ''
       )}
     </div>
   );

@@ -2,6 +2,7 @@ import './SignUp.css';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import env from '../../env';
 
 const SignUp: React.FC = () => {
   const [state, setState] = useState({
@@ -14,7 +15,7 @@ const SignUp: React.FC = () => {
   });
 
   const auth = async () => {
-    const response = await axios.post('http://localhost:8080/api/signup', {
+    const response = await axios.post(`${env.api}/api/signup`, {
       name: state.name,
       email: state.email,
       password: state.password,
